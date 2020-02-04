@@ -23,5 +23,20 @@ server.get('/api/elements', (req, res) => {
         })
 })
 
+server.get('/api/elements/:id', (req, res) => {
+    const id = req.params.id;
+
+    Elements.findById(id)
+    .then(elements => {
+        console.log("Elements:", elements);
+        res.status(200).json(elements);
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(500).json({errorMessage: "sorry, we run into an error finding that id"})
+    })
+
+})
+
 const port = 8000;
 server.listen(port, () => console.log(`\n *** api on port: ${port} *** `))
