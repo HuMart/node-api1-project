@@ -38,5 +38,18 @@ server.get('/api/elements/:id', (req, res) => {
 
 })
 
+server.post('/api/elements', (req, res) => {
+    const elementData = req.body;
+
+    Elements.insert(elementData)
+        .then(element => {
+            res.status(201).json(element);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({errorMessage: "sorry, we run into an error creating the new object"});
+        })
+})
+
 const port = 8000;
 server.listen(port, () => console.log(`\n *** api on port: ${port} *** `))
